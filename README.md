@@ -4,7 +4,7 @@
 >
 > **Thank You (`@elder-plinius` / `V3R1T4S`):** Special thanks to **[Pliny (`@elder-plinius`)](https://github.com/elder-plinius)** for creating and curating the **[`elder-plinius/V3R1T4S`](https://github.com/elder-plinius/V3R1T4S)** benchmark. The four target formulations in `V3R1T4S` (`known-unknowns/biology/dreval-*.md`) directly prompted this study. We also thank the **DrEval / `drevalpy` authors** (J. Bernett, P. Iversen, M. List, D. B. Blumenthal, K. Baum, *et al.*, *Nature Communications* 2026, [doi:10.1038/s41467-026-69813-8](https://doi.org/10.1038/s41467-026-69813-8); [dr-eval.github.io](https://dr-eval.github.io/); Zenodo [`10.5281/zenodo.17294726`](https://doi.org/10.5281/zenodo.17294726)) for releasing an open, standardized drug-response evaluation framework.
 
-This text-only companion repository provides browsable summaries and technical documentation for four submissions to [`elder-plinius/V3R1T4S`](https://github.com/elder-plinius/V3R1T4S) evaluating cell-line, tissue, chemical, cross-study, and ex-vivo drug response generalization on the **DrEval** benchmark (`drevalpy==1.6.0`, Zenodo data record `23159774`).
+This companion repository provides browsable summaries and technical documentation for four submissions to [`elder-plinius/V3R1T4S`](https://github.com/elder-plinius/V3R1T4S) evaluating cell-line, tissue, chemical, cross-study, and ex-vivo drug response generalization on the **DrEval** benchmark (`drevalpy==1.6.0`, Zenodo data record `23159774`).
 
 All full prediction CSV bundles, JSON certificates, and standalone zero-dependency verifiers (`verify-it-yourself/verify.py`) are hosted directly in the four `V3R1T4S` Pull Requests listed below.
 
@@ -115,6 +115,16 @@ The entire study — from setting up a clean `drevalpy==1.6.0` virtual environme
 | **Total** | **`15:09:52` – `18:19:49 UTC`** | **`3 hr 10 min`** | **`4 / 4` wins (`Brier = 0.113`)** | **1 Full Win (`#837`) + 3 Partial Wins (`#834`, `#835`, `#836`)** |
 
 ### B. How the `we*` (`PROOFER v19` / `CLSS`) Operational Laws Shaped the Run
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./PROOFER-graph-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="./PROOFER-graph.png">
+    <img alt="PROOFER v19 Obsidian Knowledge & Decision Graph Constellation (Dark & Light Mode Adaptive)" src="./PROOFER-graph.png" width="760">
+  </picture>
+  <br>
+  <em><b>Figure 1: The Live <code>PROOFER v19</code> Knowledge & Decision Graph in Obsidian</b> (adaptive Dark/Light mode: <a href="./PROOFER-graph-dark.png">Dark</a> · <a href="./PROOFER-graph.png">Light</a>; full open-science architecture in <a href="https://github.com/mizopl/we-star"><code>mizopl/we-star</code></a>). The dense supernova cluster on the right is the <code>V3R1T4S</code> problem bank ingested into the local wiki — decomposed into interconnected problem notes (including the four <code>dreval-*</code> targets), domain hubs, and cross-referenced concepts on local disk; the inner clusters in the middle hold the core architecture and meta-laws (<code>CONSTITUTION v19</code>, <code>Op-M1..Op-M7</code>, <code>CLSS-E1..E8</code>); and the outer crescent / peripheral halo consists of observations, working notes, reports, and unlinked noise.</em>
+</p>
 
 Rather than unconstrained trial-and-error over test datasets, the `we*` governance shell enforced specific technical constraints at each step:
 
