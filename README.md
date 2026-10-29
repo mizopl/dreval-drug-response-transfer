@@ -8,6 +8,16 @@ This companion repository provides browsable summaries and technical documentati
 
 All full prediction CSV bundles, JSON certificates, and standalone zero-dependency verifiers (`verify-it-yourself/verify.py`) are hosted directly in the four `V3R1T4S` Pull Requests listed below.
 
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./PROOFER-graph-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="./PROOFER-graph.png">
+    <img alt="PROOFER v19 Obsidian Knowledge & Decision Graph Constellation (Dark & Light Mode Adaptive)" src="./PROOFER-graph.png" width="760">
+  </picture>
+  <br>
+  <em><b>Figure 0: The Live <code>PROOFER v19</code> Knowledge & Decision Graph in Obsidian</b> (adaptive Dark/Light mode: <a href="./PROOFER-graph-dark.png">Dark</a> · <a href="./PROOFER-graph.png">Light</a>; full open-science architecture in <a href="https://github.com/mizopl/we-star"><code>mizopl/we-star</code></a>). The dense supernova cluster on the right is the <code>V3R1T4S</code> problem bank ingested into the local wiki — decomposed into interconnected problem notes (including the four <code>dreval-*</code> targets), domain hubs, and cross-referenced concepts on local disk; the inner clusters in the middle hold the core architecture and meta-laws (<code>CONSTITUTION v19</code>, <code>Op-M1..Op-M7</code>, <code>CLSS-E1..E8</code>); and the outer crescent / peripheral halo consists of observations, working notes, reports, and unlinked noise.</em>
+</p>
+
 ---
 
 ## 1. The Four Submissions (Browsable Writeups & V3R1T4S Pull Requests)
@@ -30,7 +40,7 @@ Each subdirectory under [`submissions/`](./submissions/) contains the full Markd
 
 ---
 
-## 2. What This Work Is About ("O co chodzi")
+## 2. Overview & Technical Approach
 
 The DrEval benchmark evaluates whether drug-response models trained on pre-clinical cancer cell lines (`CTRPv2`, $N = 398,334$ cell–drug pairs across $829$ cell lines and $495$ drugs) learn biological and chemical signal beyond trivial cell-line viability and per-drug potency means (`NaiveMeanEffectsPredictor`), and why models degrade under Leave-Drug-Out (`LDO`), Leave-Tissue-Out (`LTO`), cross-study (`CTRPv2` $\to$ `GDSC2`), and ex-vivo (`CTRPv2` $\to$ `BeatAML2` primary patient blasts and `PDX_Bruna` breast cancer xenografts) transfer.
 
@@ -115,16 +125,6 @@ The entire study — from setting up a clean `drevalpy==1.6.0` virtual environme
 | **Total** | **`15:09:52` – `18:19:49 UTC`** | **`3 hr 10 min`** | **`4 / 4` wins (`Brier = 0.113`)** | **1 Full Win (`#837`) + 3 Partial Wins (`#834`, `#835`, `#836`)** |
 
 ### B. How the `we*` (`PROOFER v19` / `CLSS`) Operational Laws Shaped the Run
-
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="./PROOFER-graph-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="./PROOFER-graph.png">
-    <img alt="PROOFER v19 Obsidian Knowledge & Decision Graph Constellation (Dark & Light Mode Adaptive)" src="./PROOFER-graph.png" width="760">
-  </picture>
-  <br>
-  <em><b>Figure 1: The Live <code>PROOFER v19</code> Knowledge & Decision Graph in Obsidian</b> (adaptive Dark/Light mode: <a href="./PROOFER-graph-dark.png">Dark</a> · <a href="./PROOFER-graph.png">Light</a>; full open-science architecture in <a href="https://github.com/mizopl/we-star"><code>mizopl/we-star</code></a>). The dense supernova cluster on the right is the <code>V3R1T4S</code> problem bank ingested into the local wiki — decomposed into interconnected problem notes (including the four <code>dreval-*</code> targets), domain hubs, and cross-referenced concepts on local disk; the inner clusters in the middle hold the core architecture and meta-laws (<code>CONSTITUTION v19</code>, <code>Op-M1..Op-M7</code>, <code>CLSS-E1..E8</code>); and the outer crescent / peripheral halo consists of observations, working notes, reports, and unlinked noise.</em>
-</p>
 
 Rather than unconstrained trial-and-error over test datasets, the `we*` governance shell enforced specific technical constraints at each step:
 
