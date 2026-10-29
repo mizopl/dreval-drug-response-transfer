@@ -15,7 +15,7 @@ All full prediction CSV bundles, JSON certificates, and standalone zero-dependen
     <img alt="PROOFER v19 Obsidian Knowledge & Decision Graph Constellation (Dark & Light Mode Adaptive)" src="./PROOFER-graph.png" width="760">
   </picture>
   <br>
-  <em><b>Figure 0: The Live <code>PROOFER v19</code> Knowledge & Decision Graph in Obsidian</b> (adaptive Dark/Light mode: <a href="./PROOFER-graph-dark.png">Dark</a> · <a href="./PROOFER-graph.png">Light</a>; full open-science architecture in <a href="https://github.com/mizopl/we-star"><code>mizopl/we-star</code></a>). The dense supernova cluster on the right is the <code>V3R1T4S</code> problem bank ingested into the local wiki — decomposed into interconnected problem notes (including the four <code>dreval-*</code> targets), domain hubs, and cross-referenced concepts on local disk; the inner clusters in the middle hold the core architecture and meta-laws (<code>CONSTITUTION v19</code>, <code>Op-M1..Op-M7</code>, <code>CLSS-E1..E8</code>); and the outer crescent / peripheral halo consists of observations, working notes, reports, and unlinked noise.</em>
+  <sub><em><b>Figure 0:</b> Live <code>PROOFER v19</code> knowledge &amp; decision graph in Obsidian (<a href="./PROOFER-graph-dark.png">Dark</a> · <a href="./PROOFER-graph.png">Light</a> · <a href="https://github.com/mizopl/we-star"><code>mizopl/we-star</code></a>): ingested <code>V3R1T4S</code> problem cluster on the right, core meta-laws &amp; domain hubs in the center, and working notes / observations in the outer crescent.</em></sub>
 </p>
 
 ---
