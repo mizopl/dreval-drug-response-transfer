@@ -43,15 +43,15 @@
 
 | Dataset / Stratum | Model / Decomposition Step | `R2_norm` (Mean `±` SD) | `Pearson_norm` (Mean `±` SD) | `Spearman_norm` (Mean `±` SD) | `MSE` | Within-Drug Cell Ranking (`r`) |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: |
-| **`BeatAML2` (16 Shared Drugs, $N=11,901$)** | **Ours: `SchurBilinearExVivoDRP` (Unadjusted)** | **`+0.01186 ± 0.00550`** (`10/10 > 0`) | **`+0.18519 ± 0.01894`** | **`+0.31010 ± 0.02263`** | **`13.7824`** | **`+0.0565` (`4.04x` vs `RF`)** |
-| `BeatAML2` (16 Shared Drugs, $N=11,901$) | `RawPlatformKRR` (No Rank-Normal Alignment) | `-0.01449 ± 0.01071` | `+0.17229 ± 0.01606` | `+0.29668 ± 0.01760` | `14.1500` | `+0.0165` |
-| `BeatAML2` (16 Shared Drugs, $N=11,901$) | `NaiveMeanEffectsPredictor` | `-0.05660 ± 0.00441` | `0.00000` | `0.00000` | `14.7147` | `0.0000` |
-| `BeatAML2` (`p3` Step 4: Offset+Shared+`<=10`) | **Ours: `SchurBilinearExVivoDRP` (`p3` Closed)** | **`+0.08370 ± 0.00982`** | **`+0.29125 ± 0.01930`** | **`+0.31113 ± 0.02162`** | **`6.4743`** | **`+0.0565`** |
-| **`PDX_Bruna` (All Drugs, $N=1,046$)** | **Ours: `SchurBilinearExVivoDRP` / `RawPlatformKRR`** | `-0.39248` / **`-0.18939`** | **`+0.10046` / `+0.21946`** | **`+0.20912` / `+0.26101`** | `15.8705` / `13.5558` | `+0.0442` |
-| `PDX_Bruna` (All Drugs, $N=1,046$) | Same-Env `RandomForest` | `-0.29623 ± 0.02581` | `+0.07715 ± 0.04996` | `+0.18460 ± 0.06808` | `14.7738` | `-0.0031` |
-| `PDX_Bruna` (Unseen Drugs, $N=491$) | **Ours: `SchurBilinearExVivoDRP` (Unadjusted)** | `-0.61942 ± 0.03298` | **`+0.34738 ± 0.03324`** | **`+0.43627 ± 0.02941`** | `19.9977` | `+0.0812` |
-| `PDX_Bruna` (`p3` Step 2: Offset+Slope Aligned) | **Ours: `SchurBilinearExVivoDRP` (`p3` Closed)** | **`+0.00643 ± 0.00633`** | **`+0.10046 ± 0.01842`** | **`+0.20912 ± 0.00905`** | **`11.3240`** | `+0.0442` |
-| **`GDSC2` (All Drugs, $N=47,296$)** | **Ours: `SchurBilinearExVivoDRP` (Unadjusted)** | **`-0.42457 ± 0.02711`** (`+0.1586` vs `RF`) | **`+0.13294 ± 0.01253`** | **`+0.17419 ± 0.00773`** | **`6.3810`** | **`+0.3515` (`2.40x` vs `RF`)** |
-| `GDSC2` (All Drugs, $N=47,296$) | Same-Env `RandomForest` | `-0.58316 ± 0.04199` | `+0.10796 ± 0.02580` | `+0.13807 ± 0.01763` | `7.0914` | `+0.1462` |
-| `GDSC2` (All Drugs, $N=47,296$) | Same-Env `GradientBoosting` | `-0.60662 ± 0.04877` | `+0.07257 ± 0.02736` | `+0.09062 ± 0.01918` | `7.1965` | `+0.0888` |
-| `GDSC2` (`p3` Step 2: Offset+Slope Aligned) | **Ours: `SchurBilinearExVivoDRP` (`p3` Closed)** | **`-0.00124 ± 0.00758`** (`+0.4233` gain) | **`+0.13294 ± 0.01253`** | **`+0.17419 ± 0.00773`** | **`4.4849`** | **`+0.3515`** |
+| **`BeatAML2` (79 Shared Drugs, $N=11,901$)** | **Ours: `SchurBilinearExVivoDRP` (Unadjusted)** | **`+0.01186 ± 0.00550`** (`10/10 > 0`) | **`+0.18519 ± 0.01202`** | **`+0.31011 ± 0.02152`** | **`17.5735`** | **`+0.0565` (`4.02x` vs `RF`)** |
+| `BeatAML2` (All Drugs, $N=19,823$) | `RawPlatformKRR` (No Rank-Normal Alignment) | `-0.10512 ± 0.00698` | `-0.01006 ± 0.00955` | `-0.00090 ± 0.01568` | `15.3618` | `+0.0165` |
+| `BeatAML2` (All Drugs, $N=19,823$) | `NaiveMeanEffectsPredictor` | `-0.07339 ± 0.00203` | `0.00000` | `0.00000` | `14.9207` | `0.0000` |
+| `BeatAML2` (`p3` Unlabeled `(i)+(ii)+(iii)`, $N=19,823$) | **Ours: `SchurBilinearExVivoDRP` (`0` $y_{\text{true}}$ touches)** | **`+0.05710 ± 0.00305`** (`10/10 > 0`) | **`+0.24186 ± 0.00739`** | **`+0.25798 ± 0.00983`** | **`13.1068`** | **`+0.0565`** |
+| **`PDX_Bruna` (All Drugs, $N=1,046$)** | **Ours: `SchurBilinearExVivoDRP` / `RawPlatformKRR`** | `-0.39248` / **`-0.18939`** | **`+0.10046` / `+0.21946`** | **`+0.20911` / `+0.26100`** | `15.8705` / `13.5558` | `+0.0442` |
+| `PDX_Bruna` (All Drugs, $N=1,046$) | Same-Env `RandomForest` | `-0.29623 ± 0.02244` | `+0.07715 ± 0.01008` | `+0.18460 ± 0.01987` | `14.7737` | `-0.0031` |
+| `PDX_Bruna` (Unseen Drugs, $N=491$) | **Ours: `SchurBilinearExVivoDRP` (Unadjusted)** | `-0.39812 ± 0.02288` | **`+0.34738 ± 0.00994`** | **`+0.35337 ± 0.00682`** | `17.8831` | `+0.0812` |
+| `PDX_Bruna` (`p3` Unlabeled `(i)+(ii)+(iii)`, $N=1,046$) | **Ours: `SchurBilinearExVivoDRP` (`0` $y_{\text{true}}$ touches)** | **`+0.10159 ± 0.00598`** (`10/10 > 0`) | **`+0.35691 ± 0.01104`** | **`+0.35221 ± 0.01022`** | **`10.2395`** | `+0.0442` |
+| **`GDSC2` (Evaluated Disjoint, $N=40,292.4$)** | **Ours: `SchurBilinearExVivoDRP` (Unadjusted)** | **`-0.42457 ± 0.02711`** (`+0.2170` vs `RF`) | **`+0.13294 ± 0.01253`** | **`+0.17419 ± 0.00773`** | **`6.3810`** | **`+0.3515` (`2.40x` vs `RF`)** |
+| `GDSC2` (Evaluated Disjoint, $N=40,292.4$) | Same-Env `RandomForest` | `-0.64155 ± 0.03474` | `+0.08796 ± 0.01127` | `+0.11258 ± 0.01730` | `7.3528` | `+0.1462` |
+| `GDSC2` (`p3 (i-a)` In-Window Predictions, Label-Free) | **Ours: `SchurBilinearExVivoDRP` (`0` $y_{\text{true}}$ touches)** | **`+0.03945 ± 0.01189`** (`+0.4640` gain) | **`+0.36026 ± 0.00637`** | **`+0.35109 ± 0.00560`** | **`2.6307`** | **`+0.3515`** |
+| `GDSC2` (`p3 (iii-a)` 1-Param Offset Aligned) | **Ours: `SchurBilinearExVivoDRP` (`p3` Closed)** | **`-0.00124 ± 0.00758`** (`+0.4233` gain) | **`+0.13294 ± 0.01253`** | **`+0.17419 ± 0.00773`** | **`4.4849`** | **`+0.3515`** |

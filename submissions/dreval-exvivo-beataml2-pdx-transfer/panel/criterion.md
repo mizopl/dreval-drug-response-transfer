@@ -1,22 +1,17 @@
-# V3R1T4S Skeptic 3 (CRITERION) Adversarial Audit Report — `dreval-exvivo-beataml2-pdx-transfer`
+# Skeptic 3: Target Criterion & Anti-Leakage Review — `dreval-exvivo-beataml2-pdx-transfer` (`p3`)
 
-- context: fresh subagent invoked via invoke_subagent for independent V3R1T4S panel review
-- **Verdict:** PASS
-- **Target ID:** `dreval-exvivo-beataml2-pdx-transfer`
-- **Submission ID:** `2026-10-29-mizopl-212d5367`
-- **Claimed Verdict:** `CONFIRMED_PARTIAL` (`claim_type: partial_win`, `partial_win: p3`)
+context: independent check of target criteria and p3 transfer-gap decomposition
+target_id: dreval-exvivo-beataml2-pdx-transfer
+package: 2026-11-07-mizopl-d1d47e16
 
----
+## Checks Performed
 
-## 1. Clause-by-Clause Verification Against `dreval-exvivo-beataml2-pdx-transfer.md`
-
-| Requirement | Verified Evidence in Package | Status |
-| :--- | :--- | :---: |
-| **Pinned `drevalpy` & Official Splits** | `drevalpy==1.6.0` on Zenodo record `23159774` (`18770924`) + `leaderboard_Oct26.zip` (`splits.zip`); `NaiveMeanEffectsPredictor` matches upstream to `0.00e+00`. | **PASS** |
-| **Strict Air-Gap Pre-Registration (`Anti-Trap #1`)** | `object/preregistration_lock.json` (`5c9295e157e58376a63e0ef358edbfc950bcff6f30499c494ffc01a47cd6c33a`) frozen at `2026-10-29T16:54:12Z` before any `BeatAML2`, `PDX_Bruna`, or `GDSC2` evaluation. | **PASS** |
-| **Same-Environment Baseline Re-Runs** | Re-ran `NaiveMeanEffectsPredictor`, `RandomForest`, `GradientBoosting`, `MultiOmicsNeuralNetwork`, and `SimpleNeuralNetwork` on the exact same splits (`object/stage3_exvivo_cross_study_results.json` and `object/stage4_formalities_and_tanimoto_nulls.json`). | **PASS** |
-| **Anti-Trap Morgan Tanimoto Stratification & 2 Split Seeds** | Evaluated `LDO` across `seed=42` (`+0.06006`) and `seed=1337` (`+0.06857`) and stratified by max Morgan Tanimoto similarity `<= 0.85` (`+0.06012` / `+0.06843`), `<= 0.70` (`+0.04113` / `+0.05700`), and `<= 0.50` (`+0.00235` / `+0.00015`). | **PASS** |
-| **Pre-Registered Null Test (`B = 500` Controls)** | `null_test.md` and `object/stage4_formalities_and_tanimoto_nulls.json` verify `500/500` permutation controls beaten (`real_beats_all_controls: yes`). | **PASS** |
-| **Digit-for-Digit Prose-to-Certificate Match (`K12`)** | Every number and SHA-256 hash in `README.md`, `INDEX.csv`, `the-record-we-beat/record.md`, `HOW_WE_FOUND_IT.md`, and `panel/*.md` matches `object/certificate.json` (`212d5367b008c8b5ed8d13c5e468a8a653cc585b697bd973275271ef3f5a7148`). | **PASS** |
+1. **Primary, `p1`, and `p2` Criteria (Not Claimed):**
+   - Primary criterion requires 10-split mean `R2_norm >= 0.02` on `BeatAML2` across all evaluated rows (`N = 19,823`). Unadjusted `SchurBilinearExVivoDRP` achieves `R2_norm = -0.09514 +- 0.00706` on all `19,823` rows (`+0.01186 +- 0.00550` on the `79` shared drugs, `N = 11,901`), so the primary criterion is not met.
+   - `p1` (`BeatAML2` `Pearson_norm`): unadjusted `SchurBilinearExVivoDRP` achieves `+0.08461 +- 0.00873`, which is below same-environment `RandomForest_SameEnv` (`+0.23218 +- 0.00657`).
+   - `p2` (`PDX_Bruna` `Pearson_norm`): unadjusted `SchurBilinearExVivoDRP` achieves `+0.10046 +- 0.01842`, which is below same-environment `GradientBoosting_SameEnv` (`+0.13012 +- 0.01639`).
+2. **`p3` Criterion & What-Does-Not-Count Guardrails:**
+   - Audited `how-we-built-it/stage3_exvivo_and_cross_study_eval.py`, `object/certificate.json`, and `object/stage3_p3_gap_decomposition.json` to confirm that **zero** `BeatAML2` or `PDX_Bruna` response values (`y_true` / `LN_IC50_curvecurator`) are used for training, fine-tuning, hyperparameter selection, response-scale calibration, or row filtering (`|y_true| <= 10` is completely removed).
+   - Verified that each of the three factors `(i)`, `(ii)`, and `(iii)` is applied **on its own** to the exact same `SchurBilinearExVivoDRP` predictions on all `19,823` `BeatAML2` rows and all `1,046` `PDX_Bruna` rows, as well as cumulatively (`Step 0 -> Step 1 -> Step 2 -> Step 3`), and that every number in `README.md`, `HOW_WE_FOUND_IT.md`, `INDEX.csv`, `null_test.md`, and `the-record-we-beat/record.md` matches `object/certificate.json` and `object/stage3_p3_gap_decomposition.json` digit-for-digit.
 
 pass: true

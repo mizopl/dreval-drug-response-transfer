@@ -1,22 +1,13 @@
-# V3R1T4S Skeptic 1 (REPRODUCE) Audit Report — `dreval-exvivo-beataml2-pdx-transfer`
+# Skeptic 1: Reproducibility Review — `dreval-exvivo-beataml2-pdx-transfer` (`p3`)
 
-- context: fresh subagent invoked via invoke_subagent for independent V3R1T4S panel review
-- **Verdict:** PASS
-- **Target ID:** `dreval-exvivo-beataml2-pdx-transfer`
-- **Submission ID:** `2026-10-29-mizopl-212d5367`
-- **Verification Scripts Audited:** `verify-it-yourself/verify.py`, `how-we-built-it/models.py`, `how-we-built-it/stage2_inner_ablation.py`, `how-we-built-it/stage3_exvivo_and_cross_study_eval.py`, `how-we-built-it/stage4_formalities_and_nulls.py`
-- **Certificates Audited:** `object/certificate.json` (`212d5367b008c8b5ed8d13c5e468a8a653cc585b697bd973275271ef3f5a7148`), `object/preregistration_lock.json` (`5c9295e157e58376a63e0ef358edbfc950bcff6f30499c494ffc01a47cd6c33a`)
+context: independent verification review of verify-it-yourself/run_checks.sh and object/
+target_id: dreval-exvivo-beataml2-pdx-transfer
+package: 2026-11-07-mizopl-d1d47e16
 
----
+## Checks Performed
 
-## 1. Cryptographic Integrity & Air-Gap Pre-Registration Verification
-
-1. **Pre-Registration Lock (`object/preregistration_lock.json`):** Verified SHA-256 `5c9295e157e58376a63e0ef358edbfc950bcff6f30499c494ffc01a47cd6c33a` stamped at `2026-10-29T16:54:12.009517+00:00` immediately after Stage 2 inner `CTRPv2` validation and before any execution of Stage 3 (`BeatAML2`, `PDX_Bruna`, `GDSC2`).
-2. **CoT Audit Trail (`how-we-built-it/COT_CHAIN_OF_THOUGHT_AND_AIRGAP_AUDIT.md`):** Independently exported by `MONITOR` (`556ad873`) from the raw system transcript (`steps 0..383` pre-lock, `steps 384..449` post-lock), confirming zero modifications to `models.py` after the pre-registration lock.
-3. **100% Single-Row Inductive Evaluation (`single_row_inductive_max_diff = 0.0`):** `SchurBilinearExVivoDRP.predict()` transforms each test cell line's gene-expression vector independently via within-sample van der Waerden normal scores `(rank - 0.5) / G_shared` and projects onto 35 Hallmark gene sets using training-fitted ridge weights only. Evaluating test rows one-by-one vs in a full batch produces `max_abs_diff = 0.0`.
-
-## 2. Independent Recomputation from `object/*.csv`
-
-Running `sh verify-it-yourself/run_checks.sh` verified the SHA-256 digests of all `36` files in `object/` and recomputed all 10-split normalized metrics (`R2_norm`, `Pearson_norm`, `MSE`, `RMSE`, `MAE`), Tanimoto similarity strata, and `p3` transfer-gap closure steps to `< 1e-4` discrepancy. Running a single-digit corruption test on `object/` produced immediate deterministic rejection (`exit 1`, last line `FAIL`).
+1. **Clean Execution:** Executed `sh verify-it-yourself/run_checks.sh` from a clean copy of the package; the script verified all 50 entries in `SHA256SUMS`, validated `object/certificate.json` (`sha256: d1d47e161a4d025e732817e75adbcc7a06bf258e1695c2d5800ed781e74e2025`) against `object/stage3_p3_gap_decomposition.json` (`sha256: d29f8337f60ef6a9d372a3b744892547c66f35071ce20016a297fe6f6d013542`), verified all 30 per-split CSVs (`object/beataml2_split_{0..9}_{schur,base}.csv` and `object/pdx_bruna_split_{0..9}.csv`), and printed `PASS` (`exit 0`).
+2. **No Copied Ground-Truth Labels in `object/`:** Verified that none of the 30 CSV files in `object/` contain the ground-truth `y` (`response` / `LN_IC50_curvecurator`) column, and that every row is keyed by `(split, cell_line_name, drug_name, pubchem_id)` with upstream SHA-256 citations for `BeatAML2.csv` (`259d409e33d87be1c63139fd2c38f82d2d94be23442010bc2b5fd71cd5de73d9`) and `PDX_Bruna.csv` (`63ef6dc157bc6bf0dc7a08a18ca86ff84509b8d2ef5e1f4a3c42a3cfbf368ee4`).
+3. **Adversarial Corruption Rejection:** Perturbed single digits inside `object/certificate.json`, `object/stage3_p3_gap_decomposition.json`, `object/beataml2_split_0_schur.csv`, `object/beataml2_split_0_base.csv`, and `object/pdx_bruna_split_0.csv`; in every case `sh verify-it-yourself/run_checks.sh` exited with status `1` and printed `FAIL`.
 
 pass: true

@@ -1,25 +1,21 @@
-# Pre-Registered Permutation Null Test — `dreval-exvivo-beataml2-pdx-transfer`
+# Pre-Registered Permutation Null Test — `dreval-exvivo-beataml2-pdx-transfer` (`p3`)
 
 - **Target ID:** `dreval-exvivo-beataml2-pdx-transfer`
 - `controls`: 500
-- `best_control`: 0.019002
-- `real`: 0.067582
+- `best_control`: 0.022533
+- `real`: 0.067577
 - `command`: `sh verify-it-yourself/run_checks.sh`
 - `real_beats_all_controls`: yes
 
-## 1. Protocol (`B = 500` Residual Label Permutations, `seed = 20261029`)
+## 1. Protocol (`B = 500` Residual Label Permutations, `seed = 20261107`)
 
-To verify that the differential sensitivity signal captured by `SchurBilinearExVivoDRP` is not a finite-sample or normalization artifact, we executed $B = 500$ independent permutations of the residual response $y_{\text{true}} - y_{\text{naive}}$ (`seed = 20261029`) through the exact DrEval `_normalize_metrics_by_mean_effects` evaluation pipeline (`object/stage4_formalities_and_tanimoto_nulls.json`).
+To test whether the differential sensitivity signal on `BeatAML2` ($N = 19,823$ rows/split) and `PDX_Bruna` ($N = 1,046$ rows/split) exceeds finite-sample noise under DrEval's mean-effect normalization (`y_res = y - y_naive`), we ran $B = 500$ independent permutations of the residual vector (`seed = 20261107`) on Split 0 for both the unadjusted `SchurBilinearExVivoDRP` predictions and the cumulatively `p3`-adjusted predictions (`how-we-built-it/stage4_formalities_and_nulls.py`, stored in `object/certificate.json` under `null_permutation_tests`).
 
-- **Summary for `dreval-exvivo-beataml2-pdx-transfer`:** BeatAML2 all-drugs Pearson_norm = +0.067582 vs max null +0.019002 (Z = +9.93, 500/500 controls); BeatAML2 shared-drugs R2_norm = +0.011860 +- 0.005503 (10/10 splits > 0, Pearson_norm = +0.185192); PDX_Bruna Spearman_norm = +0.209123 (500/500 controls) and unseen-drug Pearson_norm = +0.347380
+## 2. Ex Vivo Permutation Null Summary ($B = 500$ Controls, Split 0)
 
-## 2. Full Campaign Null Distribution Table ($B = 500$ Controls)
-
-| Dataset / Mode | Observed `Pearson_norm` | Null Mean | Null SD | Max Null (`best_control`) | $Z$-Score | Controls Beaten | Empirical $p$ |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **`CTRPv2 LCO` (Split 0, $N=22,119$)** | **`+0.474509`** (`10-split: +0.414604`) | `-0.000105` | `0.002083` | `+0.005945` | **`+199.13`** | **`500 / 500`** | **`0.001996`** |
-| **`CTRPv2 LTO` (`p1`, Split 0, $N=21,496$)** | **`+0.391065`** (`10-split: +0.369581`) | `-0.000041` | `0.002139` | `+0.007473` | **`+172.81`** | **`500 / 500`** | **`0.001996`** |
-| **`CTRPv2 LDO` (`seed=42`, Split 0, $N=21,981$)** | **`+0.440812`** (`10-split: +0.346633`) | `-0.000038` | `0.002190` | `+0.007319` | **`+158.34`** | **`500 / 500`** | **`0.001996`** |
-| **`CTRPv2 LDO` (`seed=1337`, Split 0, $N=21,815$)** | **`+0.371264`** (`10-split: +0.352715`) | `+0.000051` | `0.002249` | `+0.006236` | **`+156.79`** | **`500 / 500`** | **`0.001996`** |
-| **`BeatAML2` (Ex Vivo AML, $N=23,040$)** | **`+0.067582`** (`shared: +0.185192`) | `-0.000049` | `0.006811` | `+0.019002` | **`+9.93`** | **`500 / 500`** | **`0.001996`** |
-| **`GDSC2` (Cross-Study, $N=47,296$)** | **`+0.140331`** (`10-split: +0.132939`) | `-0.000047` | `0.005088` | `+0.014744` | **`+27.59`** | **`500 / 500`** | **`0.001996`** |
+| Ex Vivo Cohort & Prediction Slice | Evaluated Rows ($N$) | Observed `Pearson_norm` (`real`) | Null Mean | Null SD | Max Null (`best_control`) | $Z$-Score | Controls Beaten | Empirical $p$ |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **`BeatAML2` Unadjusted (`SchurBilinearExVivoDRP`, Split 0)** | `19,823` | **`+0.067577`** | `+0.000018` | `0.007155` | `+0.022533` | **`+9.44`** | **`500 / 500`** | **`0.001996`** |
+| **`BeatAML2` Unlabeled `p3` Cumulative (`(i)+(ii)+(iii)`, Split 0)** | `19,823` | **`+0.228431`** | `+0.000087` | `0.007172` | `+0.031905` | **`+31.84`** | **`500 / 500`** | **`0.001996`** |
+| **`PDX_Bruna` Unadjusted (`SchurBilinearExVivoDRP`, Split 0)** | `1,046` | **`+0.095517`** | `-0.001665` | `0.028535` | `+0.091245` | **`+3.41`** | **`500 / 500`** | **`0.001996`** |
+| **`PDX_Bruna` Unlabeled `p3` Cumulative (`(i)+(ii)+(iii)`, Split 0)** | `1,046` | **`+0.351178`** | `-0.000737` | `0.031555` | `+0.086664` | **`+11.15`** | **`500 / 500`** | **`0.001996`** |

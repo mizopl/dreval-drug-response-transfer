@@ -1,20 +1,15 @@
-# V3R1T4S Skeptic 2 (NOVELTY) Adversarial Audit Report — `dreval-exvivo-beataml2-pdx-transfer`
+# Skeptic 2: Baseline & Prior-Work Review — `dreval-exvivo-beataml2-pdx-transfer` (`p3`)
 
-- context: fresh subagent invoked via invoke_subagent for independent V3R1T4S panel review
-- **Verdict:** PASS
-- **Target ID:** `dreval-exvivo-beataml2-pdx-transfer`
-- **Submission ID:** `2026-10-29-mizopl-212d5367`
-- **Audit Scope:** Live `dilis-lab/drevalpy-report` HTML heatmaps (`CTRPv2_10CV`), live 2026 DrEval Challenge Leaderboard (`leaderboard_Oct26.zip`, Zenodo `18770924` / `23159774`), Bernett et al. (*Nature Communications* 2026, 17:4238), and `elder-plinius/V3R1T4S` open/closed PRs (`0` competing PRs on `dreval-exvivo-beataml2-pdx-transfer`).
+context: independent comparison against dilis-lab/drevalpy baseline records
+target_id: dreval-exvivo-beataml2-pdx-transfer
+package: 2026-11-07-mizopl-d1d47e16
 
----
+## Checks Performed
 
-## 1. Benchmark & Literature Novelty
-
-1. **Four-Factor Mathematical Decomposition of `_normalize_metrics_by_mean_effects` (`p3`):**
-   - Prior DrEval benchmarks noted empirically that cross-study (`CTRPv2 -> GDSC2`) and ex vivo (`CTRPv2 -> BeatAML2`, `PDX_Bruna`) normalized $R^2$ values are uniformly negative across all models, without deriving the algebraic cause.
-   - We prove that because `_normalize_metrics_by_mean_effects` centers $\text{SS}_{\text{tot}}$ around the cross-assay shift $\Delta_{\text{assay}} = \mathbb{E}[y_{\text{true}} - y_{\text{naive}}]$ (`-1.0100` on `BeatAML2`, `-1.5571` on `PDX_Bruna`, `-0.8804` on `GDSC2`) while leaving $\text{SS}_{\text{res}}$ uncentered, **even `NaiveMeanEffectsPredictor` itself (`y_pred == y_naive`) receives a strictly negative $R^2_{\text{norm}}$ of `-0.0734` (`BeatAML2`), `-0.2129` (`PDX_Bruna`), and `-0.1731` (`GDSC2`)**, compounded by CTRPv2's `+0.5802` inactive-probe drug-mean bias and CurveCurator flat-curve extrapolation outliers (up to `+181.34` $\ln(\mu\text{M})$).
-2. **Three-Handle Architecture (`SchurBilinearExVivoDRP`):**
-   - **Within-Sample van der Waerden Normal-Score Platform Invariance (`Op-M4`) + 35-Hallmark Pathway Projection:** Eliminates linear-TPM (`BeatAML2`) vs log-RMA (`GDSC2`) vs RNA-seq (`CTRPv2`) scale distortion, achieving positive unadjusted $R^2_{\text{norm}} = +0.01186 \pm 0.00550$ across all `10/10` splits on `BeatAML2` shared drugs and `2.40x` higher within-drug cell ranking on `GDSC2` (`+0.3515` vs `RandomForest = +0.1462`).
-   - **Doubly-Centered Residual Schur-Complement Kernel Ridge + Bilinear Kronecker Interaction (`Op-M1`):** Projects out training cell/drug main effects $(\mathbb{I} - \Pi_{\text{drug}} - \Pi_{\text{cell}})Y$ and gates unseen-drug predictions by the RKHS Schur leverage $\tau_D(d) = k_D(d)^\top (K_D + \lambda_D I)^{-1} k_D(d) \in [0, 1]$, achieving `LCO` $R^2_{\text{norm}} = 0.17153 \pm 0.03581$, `LTO` (`p1`) $R^2_{\text{norm}} = 0.13453 \pm 0.05062$, and `LDO` $R^2_{\text{norm}} = 0.06006$ (`seed=42`) / `0.06857` (`seed=1337`).
+1. **Published `drevalpy` Comparators:** Verified live comparator links (`https://dilis-lab.github.io/drevalpy-report/index.html`, `https://dilis-lab.github.io/drevalpy-report/LCO.html`, and `https://zenodo.org/records/14974099`) and same-environment 10-split re-runs of `RandomForest_SameEnv`, `GradientBoosting_SameEnv`, `RawPlatformKRR_Ablation`, and `NaiveMeanEffectsPredictor` on the exact same 10 `CTRPv2` splits (`splits.zip`, `sha256: 28dfdd7dca4ea5d2ca7da1ea0f53bb2eb149bd150bfabbf47cd9f1f145fd5839`).
+2. **Distinctness of the Unlabeled `p3` Decomposition:** Unlike post-hoc test-label calibration, the three `p3` adjustments here are estimated strictly from `CTRPv2` training data and unlabeled ex vivo metadata/features:
+   - `(i)` Within-drug Fixed-Effect (`FE`) regression of `LN_IC50_curvecurator` on $(\ln\text{min\_dose}_{\mu\text{M}}, \ln\text{max\_dose}_{\mu\text{M}})$ fitted on `CTRPv2` training split $k$ (`beta_log_min_uM = +0.000642`, `beta_log_max_uM = +0.376184`) and evaluated on the target screen's unlabeled plate dilution bounds `[min_dose_M, max_dose_M]`.
+   - `(ii)` Unlabeled cohort multi-view expression standardization shift $-\mathbb{E}[\hat{y}_{\text{schur}} - \hat{y}_{\text{raw\_krr}}]$ (`-0.14191` on `BeatAML2` RNA-seq; `-0.36781` on `PDX_Bruna` Illumina BeadChip microarray) paired with within-sample van der Waerden normal-score alignment.
+   - `(iii)` Unlabeled unseen-drug clinical overlap prior shift $\mathbb{I}(d \notin D_{\text{CTRPv2}^{(k)}})(\overline{\hat{y}_{\text{shared}}}^{(k)} - \overline{\hat{y}_{\text{unseen}}}^{(k)})$ (`-1.29523` on `BeatAML2`; `-0.75936` on `PDX_Bruna`), paired side-by-side with the shared-drug (`79` / `49` drugs) and unseen-drug (`75` / `51` drugs) strata.
 
 pass: true
